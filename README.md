@@ -10,5 +10,5 @@ The matrial in this repository is focused on students with
 previous programming experience in Python. The material was developed to be used in the lecture *Industrielle Produktion und Industrie 4.0* at the 
 [FH Aachen](http://www.fh-aachen.de).
 
-#Useful ressources
+# Useful ressources
 - curated list of libraries for MicroPython: [Awsome MicroPython](http://awesome-micropython.com/)
