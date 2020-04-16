@@ -5,7 +5,7 @@ import ntptime
 def connect_wifi():
     wifi_passwds = {}
 
-    with open("/wifi_passwds.txt") as f:
+    with open("/cert/wifi_passwds.txt") as f:
         for line in f.readlines():
             wifi_id, passwd = line.split(":")
             wifi_passwds[wifi_id] = passwd
@@ -15,7 +15,7 @@ def connect_wifi():
     if not wlan.isconnected():
         wlan.active(True)
 
-        visible_wifis = [w[0] for w in wlan.scan()]
+        visible_wifis = [str(w[0]) for w in wlan.scan()]
         known_wifis = list(filter(lambda w: w in wifi_passwds.keys(), visible_wifis))
 
         if len(known_wifis) > 0:

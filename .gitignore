@@ -131,4 +131,4 @@ dmypy.json
 .idea/
 
 cert/
-wifi_passwds.txt
+cert/wifi_passwds.txt
