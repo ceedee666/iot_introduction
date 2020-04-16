@@ -1,45 +1,44 @@
 import sys
+
 sys.path.append("/src")
 
-import network
-import ntptime
+import wifi
+import aws_iot
+import time
+import json
 
-from aws_environment_data import *
-
-def connect_wifi():
-    wifi_passwds = {}
-    
-    with open("wifi_passwds.txt") as f:
-        for line in f.readlines():
-            wifi_id,passwd = line.split(":")
-            wifi_passwds[wifi_id]=passwd
+from machine import Pin
+from dht import DHT22
 
 
-    wlan = network.WLAN(network.STA_IF)
-
-    if not wlan.isconnected():
-        wlan.active(True)
-
-        visible_wifis = [w[0] for w in wlan.scan()]
-        known_wifis = list(filter(lambda w: w in wifi_passwds.keys(), visible_wifis))
-
-        if len(known_wifis) > 0:
-            wifi = known_wifis[0]
-            print('connecting to network', wifi)
-            wlan.connect(wifi, wifi_passwds[wifi])
-            while not wlan.isconnected():
-                pass
-
-            print("connected:", wlan.ifconfig())
-        else:
-            print('No known network available.')
+def current_datetime():
+    ts = time.localtime()
+    return '{}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}'.format(ts[0], ts[1], ts[2], ts[3], ts[4], ts[5])
 
 
-def synchronize_rtc():
-    # set the rtc datetime from the remote server
-    ntptime.settime()
+def send_sensor_data(sensor, mqtt_client):
+    sensor.measure()
+    datetime = current_datetime()
+
+    message = {'temperature': sensor.temperature,
+               'humidity': sensor.humidity,
+               'timestamp': datetime}
+    json_msg = json.dump(message)
+    try:
+        mqtt_client.publish("environment-data", json_msg)
+        print("Sent: " + json_msg)
+    except Exception as e:
+        print("Exception publish: " + str(e))
+
 
 if __name__ == "__main__":
-    connect_wifi()
-    synchronize_rtc()
-    go()
+    wifi.connect_wifi()
+    wifi.synchronize_rtc()
+
+    mqtt_client = aws_iot.connect()
+
+    sensor = DHT22(Pin(5))
+
+    while True:
+        send_sensor_data(sensor, mqtt_client)
+        time.sleep(5)
