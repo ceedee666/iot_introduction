@@ -20,10 +20,10 @@ def send_sensor_data(sensor, mqtt_client):
     sensor.measure()
     datetime = current_datetime()
 
-    message = {'temperature': sensor.temperature,
-               'humidity': sensor.humidity,
+    message = {'temperature': sensor.temperature(),
+               'humidity': sensor.humidity(),
                'timestamp': datetime}
-    json_msg = json.dump(message)
+    json_msg = json.dumps(message)
     try:
         mqtt_client.publish("environment-data", json_msg)
         print("Sent: " + json_msg)
