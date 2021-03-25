@@ -7,7 +7,7 @@ def connect_wifi():
 
     with open("/cert/wifi_passwds.txt") as f:
         for line in f.readlines():
-            wifi_id, passwd = line.split(":")
+            wifi_id, passwd = line.strip().split(":")
             wifi_passwds[wifi_id] = passwd
 
     wlan = network.WLAN(network.STA_IF)
