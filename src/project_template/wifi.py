@@ -2,13 +2,14 @@ import network
 import ntptime
 
 
-def connect_wifi():
+def connect():
     wifi_passwds = {}
 
     with open("/cert/wifi_passwds.txt") as f:
         for line in f.readlines():
-            wifi_id, passwd = line.strip().split(":")
-            wifi_passwds[wifi_id] = passwd
+            if len(line) > 0 and ":" in line:
+                wifi_id, passwd = line.strip().split(":")
+                wifi_passwds[wifi_id] = passwd
 
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
