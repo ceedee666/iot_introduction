@@ -19,8 +19,8 @@ MQTT_TOPIC = "environment-data"
 
 
 def convert_to_iso(datetime):
-    y, m, d, _, h, mi, s, _ =  datetime
-    return "{}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}".format(y,m,d,h,mi,s)
+    y, m, d, _, h, mi, s, _ = datetime
+    return "{}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}".format(y, m, d, h, mi, s)
 
 
 def measure_environment_data():
@@ -33,9 +33,7 @@ def publish_environment_data(mqtt_client):
     data = measure_environment_data()
     iso_timestamp = convert_to_iso(RTC().datetime())
 
-    message = {'temperature': data[0],
-               'humidity': data[1],
-               'timestamp': iso_timestamp}
+    message = {"temperature": data[0], "humidity": data[1], "timestamp": iso_timestamp}
     mqtt_client.publish(MQTT_TOPIC, json.dumps(message))
 
 

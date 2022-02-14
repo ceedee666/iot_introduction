@@ -20,14 +20,19 @@ def connect():
 
         print("Got Cert")
 
-        mqtt_client = MQTTClient(client_id=MQTT_CLIENT_ID, server=MQTT_HOST, port=MQTT_PORT, keepalive=5000, ssl=True,
-                                 ssl_params={"cert": cert, "key": key, "server_side": False})
+        mqtt_client = MQTTClient(
+            client_id=MQTT_CLIENT_ID,
+            server=MQTT_HOST,
+            port=MQTT_PORT,
+            keepalive=5000,
+            ssl=True,
+            ssl_params={"cert": cert, "key": key, "server_side": False},
+        )
         mqtt_client.connect()
-        print('MQTT Connected')
+        print("MQTT Connected")
 
         return mqtt_client
 
     except Exception as e:
-        print('Cannot connect MQTT: ' + str(e))
+        print("Cannot connect MQTT: " + str(e))
         raise
-

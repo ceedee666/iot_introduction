@@ -20,14 +20,14 @@ def connect():
 
         if len(known_wifis) > 0:
             wifi = known_wifis[0]
-            print('connecting to network', wifi)
+            print("connecting to network", wifi)
             wlan.connect(wifi, wifi_passwds[wifi])
             while not wlan.isconnected():
                 pass
 
             print("connected:", wlan.ifconfig())
         else:
-            print('No known network available.')
+            print("No known network available.")
 
 
 def synchronize_rtc():
