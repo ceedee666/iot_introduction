@@ -10,6 +10,8 @@ adafruit-ampy = ">=1.0.5,<1.1"
 
 [dev-packages]
 pylint = "*"
+pre-commit = "*"
+black-nb = "*"
 
 [requires]
 python_version = "3.9"
