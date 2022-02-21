@@ -1,10 +1,10 @@
-from dht import DHT11
-from machine import RTC, Pin
 import json
 import time
 
-import wifi
 import mqtt
+import wifi
+from dht import DHT11
+from machine import RTC, Pin
 
 # This template assumes the following file setup
 # - main.py
@@ -54,4 +54,5 @@ def connect_and_publish():
         time.sleep(5)
 
 
-connect_and_publish()
+if __name__ == "__main__":
+    connect_and_publish()
