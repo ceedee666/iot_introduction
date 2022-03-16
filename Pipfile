@@ -10,6 +10,7 @@ adafruit-ampy = ">=1.0.5,<1.1"
 boto3 = "*"
 matplotlib = "*"
 jupyter = "*"
+pandas = "*"
 
 [dev-packages]
 pylint = "*"
