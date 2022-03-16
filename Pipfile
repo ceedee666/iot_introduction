@@ -7,6 +7,7 @@ name = "pypi"
 pyserial = ">=3.5,<4.0"
 docopt = ">=0.6.2,<0.7"
 adafruit-ampy = ">=1.0.5,<1.1"
+boto3 = "*"
 
 [dev-packages]
 pylint = "*"
