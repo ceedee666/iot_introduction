@@ -14,30 +14,22 @@ MQTT_HOST = "a1lo9dnpk3t0qk-ats.iot.eu-central-1.amazonaws.com"
 
 
 def connect_mqtt():
-    try:
-        with open(KEY_FILE, "r") as f:
-            key = f.read()
-            print("Got Key")
+    with open(KEY_FILE, "r") as f:
+        key = f.read()
 
-        with open(CERT_FILE, "r") as f:
-            cert = f.read()
-            print("Got Cert")
+    with open(CERT_FILE, "r") as f:
+        cert = f.read()
 
-        ssl_params = {"cert": cert, "key": key, "server_side": False}
-        mqtt_client = MQTTClient(
-            client_id=MQTT_CLIENT_ID,
-            server=MQTT_HOST,
-            port=MQTT_PORT,
-            keepalive=5000,
-            ssl=True,
-            ssl_params=ssl_params,
-        )
+    ssl_params = {"cert": cert, "key": key, "server_side": False}
+    mqtt_client = MQTTClient(
+        client_id=MQTT_CLIENT_ID,
+        server=MQTT_HOST,
+        port=MQTT_PORT,
+        keepalive=5000,
+        ssl=True,
+        ssl_params=ssl_params,
+    )
 
-        mqtt_client.connect()
-        print("MQTT Connected")
+    mqtt_client.connect()
 
-        return mqtt_client
-
-    except Exception as e:
-        print("Cannot connect MQTT: " + str(e))
-        raise
+    return mqtt_client

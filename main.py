@@ -78,15 +78,31 @@ def show_text(text):
 
 
 def connect_and_publish():
-    show_text("connecting wifi...")
-    wifi.connect()
-    show_text("synch. RTC...")
-    wifi.synchronize_rtc()
+    show_text("Connecting wifi...")
+    while not wifi.connect():
+        show_text("No WLAN found.")
+        time.sleep(2)
+        show_text("Retrying.")
+        time.sleep(2)
 
-    show_text("connecting mqtt...")
-    mqtt_client = mqtt.connect_mqtt()
+    while not wifi.synchronize_rtc():
+        show_text("NTP Error.")
+        time.sleep(2)
+        show_text("Retrying.")
+        time.sleep(2)
 
-    show_text("start publishing data")
+    mqtt_client = None
+    while not mqtt_client:
+        try:
+            show_text("Connecting MQTT.")
+            mqtt_client = mqtt.connect_mqtt()
+        except Exception as e:
+            show_text("MQTT Error.")
+            time.sleep(2)
+            show_text("Retrying.")
+            time.sleep(2)
+
+    show_text("Start publishing data")
     while True:
         try:
             environment_data = measure_environment_data()
