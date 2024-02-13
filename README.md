@@ -1,3 +1,8 @@
+# Deprecation Warning 
+
+This repository is not maintained anymore. A updated version of the repository is 
+available [here](https://github.com/ceedee666/iot_introduction).
+
 # About
 
 This repository contains a number of Python scripts and [Jupyter](https://jupyter.org/) notebooks. These notebooks
