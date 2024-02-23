@@ -1,7 +1,7 @@
 # Deprecation Warning 
 
 This repository is not maintained anymore. A updated version of the repository is 
-available [here](https://github.com/ceedee666/iot_introduction).
+available [here](https://github.com/ceedee666/iot-introduction).
 
 # About
 
